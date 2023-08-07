@@ -5,6 +5,7 @@ edition = "2021"
 license = "MIT"
 authors = ["Patrick M. Elsen <pelsen@xfbs.net>"]
 description = "REST API helper traits"
+repository = "https://github.com/xfbs/restless"
 
 [dependencies]
 async-trait = { version = "0.1.72", optional = true }
