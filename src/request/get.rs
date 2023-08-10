@@ -32,11 +32,11 @@ impl<T: GetRequest> GetRequest for &T {
     type Query = T::Query;
 
     fn path(&self) -> Cow<'_, str> {
-        self.path()
+        <T as GetRequest>::path(self)
     }
 
     fn query(&self) -> Self::Query {
-        self.query()
+        <T as GetRequest>::query(self)
     }
 }
 

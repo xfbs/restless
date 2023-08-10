@@ -10,6 +10,18 @@ pub trait DeleteRequest: Sized {
     }
 }
 
+impl<T: DeleteRequest> DeleteRequest for &T {
+    type Query = T::Query;
+
+    fn path(&self) -> Cow<'_, str> {
+        <T as DeleteRequest>::path(self)
+    }
+
+    fn query(&self) -> Self::Query {
+        <T as DeleteRequest>::query(self)
+    }
+}
+
 impl<T: DeleteRequest> Request for Delete<T> {
     type Request = ();
     type Response = ();
