@@ -11,8 +11,17 @@ pub trait PatchRequest: Sized {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct Patch<T: PatchRequest>(T);
+impl<T: PatchRequest> PatchRequest for &T {
+    type Request = T::Request;
+
+    fn path(&self) -> Cow<'_, str> {
+        <T as PatchRequest>::path(self)
+    }
+
+    fn body(&self) -> Self::Request {
+        <T as PatchRequest>::body(self)
+    }
+}
 
 impl<T: PatchRequest> Request for Patch<T> {
     type Request = T::Request;

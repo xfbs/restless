@@ -3,6 +3,7 @@ use bytes::Bytes;
 #[cfg(feature = "serde")]
 use serde::Serialize;
 
+/// Determines how a request is encoded.
 pub trait RequestEncoding {
     fn encode(&self) -> Vec<u8>;
 

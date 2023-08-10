@@ -3,6 +3,7 @@
 use serde::Serialize;
 use std::borrow::Cow;
 
+/// Determines how a query string is encoded.
 pub trait QueryEncoding {
     fn encode(&self) -> Cow<'_, str>;
 }

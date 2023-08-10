@@ -4,6 +4,7 @@ use bytes::Bytes;
 use serde::de::DeserializeOwned;
 use std::{convert::Infallible, error::Error};
 
+/// Determines how a response is decoded.
 pub trait ResponseEncoding: Sized {
     type Target;
     type Error: Error + Sync + Send + 'static;

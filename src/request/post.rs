@@ -1,4 +1,4 @@
-pub use super::*;
+use super::*;
 
 pub trait PostRequest: Sized {
     type Request: RequestEncoding;
@@ -10,9 +10,6 @@ pub trait PostRequest: Sized {
         Post(self)
     }
 }
-
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct Post<T: PostRequest>(T);
 
 impl<T: PostRequest> Request for Post<T> {
     type Request = T::Request;
