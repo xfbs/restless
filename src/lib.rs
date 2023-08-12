@@ -36,16 +36,18 @@
 //!
 //! What you get "for free" from this crate is implementations of various clients. See the
 //! [`clients`] module for more information.
-#[deny(unused_imports)]
+//!
+//! ## Examples
+//!
+//! To see some examples for how this crate may be used, refer to the `examples/` directory in the
+//! [repository](https://github.com/xfbs/restless).
+#![deny(unused_imports)]
+
 pub mod data;
-use data::*;
-
 pub mod query;
-
 mod request;
-pub use request::*;
-
 pub mod clients;
-pub use clients::*;
-
 pub mod wrappers;
+
+pub use request::*;
+use data::*;
