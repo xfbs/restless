@@ -100,3 +100,12 @@ impl Decodable for () {
         Ok(())
     }
 }
+
+impl Decodable for Vec<u8> {
+    type Target = Self;
+    type Error = Infallible;
+
+    fn decode(data: &[u8]) -> Result<Self::Target, Self::Error> {
+        Ok(data.to_vec())
+    }
+}

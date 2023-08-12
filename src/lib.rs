@@ -43,11 +43,11 @@
 //! [repository](https://github.com/xfbs/restless).
 #![deny(unused_imports)]
 
+pub mod clients;
 pub mod data;
+pub mod methods;
 pub mod query;
 mod request;
-pub mod clients;
-pub mod wrappers;
 
-pub use request::*;
 use data::*;
+pub use request::*;

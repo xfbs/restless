@@ -1,13 +1,11 @@
 use super::*;
 
+/// DELETE [`Request`] method.
 pub trait DeleteRequest: Sized {
-    type Query: QueryEncoding;
+    type Query: ToQuery;
 
     fn path(&self) -> Cow<'_, str>;
     fn query(&self) -> Self::Query;
-    fn request(self) -> Delete<Self> {
-        Delete(self)
-    }
 }
 
 impl<T: DeleteRequest> DeleteRequest for &T {
@@ -28,13 +26,13 @@ impl<T: DeleteRequest> Request for Delete<T> {
     type Query = T::Query;
 
     fn path(&self) -> Cow<'_, str> {
-        self.0.path()
+        self.inner.path()
     }
 
     fn body(&self) -> Self::Request {}
 
     fn query(&self) -> Self::Query {
-        self.0.query()
+        self.inner.query()
     }
 
     fn method(&self) -> Method {

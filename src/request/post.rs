@@ -1,14 +1,11 @@
 use super::*;
 
+/// POST [`Request`] method.
 pub trait PostRequest: Sized {
     type Request: Encodable;
 
     fn path(&self) -> Cow<'_, str>;
     fn body(&self) -> Self::Request;
-
-    fn request(self) -> Post<Self> {
-        Post(self)
-    }
 }
 
 impl<T: PostRequest> PostRequest for &T {
@@ -29,11 +26,11 @@ impl<T: PostRequest> Request for Post<T> {
     type Query = ();
 
     fn path(&self) -> Cow<'_, str> {
-        self.0.path()
+        self.inner.path()
     }
 
     fn body(&self) -> Self::Request {
-        self.0.body()
+        self.inner.body()
     }
 
     fn query(&self) -> Self::Query {}

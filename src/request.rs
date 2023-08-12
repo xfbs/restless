@@ -1,4 +1,4 @@
-use crate::{data::*, query::*, wrappers::*};
+use crate::{data::*, methods::*, query::*};
 use std::borrow::Cow;
 
 mod get;
@@ -48,7 +48,7 @@ pub trait Request {
     /// Response body.
     type Response: Decodable;
     /// Query string.
-    type Query: QueryEncoding;
+    type Query: ToQuery;
 
     /// URI path.
     fn path(&self) -> Cow<'_, str>;
@@ -81,6 +81,62 @@ pub trait RequestType: Sized {
 
     /// Borrow a reference to the underlying [`Request`] type.
     fn borrow(&self) -> &Self::Request;
+}
+
+/// Specify the [`Request`] method that should be used for a type.
+///
+/// Due to the way the Rust type system works, you can implement both [`PostRequest`] and
+/// [`GetRequest`] for the same type. To be able to implement [`Request`] for your type, this trait
+/// helps by allowing you to specify which request type should be used.
+///
+/// For example:
+///
+/// ```rust
+/// use restless::*;
+/// use std::borrow::Cow;
+///
+/// struct MyRequest;
+///
+/// impl GetRequest for MyRequest {
+///     type Response = Vec<u8>;
+///     type Query = ();
+///
+///     fn path(&self) -> Cow<'_, str> {
+///         "api/v1/request".into()
+///     }
+///
+///     fn query(&self) -> Self::Query {}
+/// }
+///
+/// impl RequestMethod for MyRequest {
+///     type Method = methods::Get<Self>;
+/// }
+/// ```
+pub trait RequestMethod: Sized
+where
+    Self::Method: From<Self>,
+    for<'a> &'a Self::Method: From<&'a Self>,
+{
+    type Method: Request;
+
+    fn as_request(&self) -> &Self::Method {
+        self.into()
+    }
+
+    fn into_request(self) -> Self::Method {
+        self.into()
+    }
+}
+
+impl<T: RequestMethod> RequestType for T
+where
+    for<'a> &'a <T as RequestMethod>::Method: From<&'a T>,
+{
+    type Request = <T as RequestMethod>::Method;
+
+    fn borrow(&self) -> &Self::Request {
+        self.into()
+    }
 }
 
 impl<T: RequestType> Request for T {

@@ -1,14 +1,11 @@
 use super::*;
 
+/// PATCH [`Request`] method.
 pub trait PatchRequest: Sized {
     type Request: Encodable;
 
     fn path(&self) -> Cow<'_, str>;
     fn body(&self) -> Self::Request;
-
-    fn request(self) -> Patch<Self> {
-        Patch(self)
-    }
 }
 
 impl<T: PatchRequest> PatchRequest for &T {
@@ -29,11 +26,11 @@ impl<T: PatchRequest> Request for Patch<T> {
     type Query = ();
 
     fn path(&self) -> Cow<'_, str> {
-        self.0.path()
+        self.inner.path()
     }
 
     fn body(&self) -> Self::Request {
-        self.0.body()
+        self.inner.body()
     }
 
     fn query(&self) -> Self::Query {}
