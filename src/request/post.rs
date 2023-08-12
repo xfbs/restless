@@ -6,6 +6,10 @@ pub trait PostRequest: Sized {
 
     fn path(&self) -> Cow<'_, str>;
     fn body(&self) -> Self::Request;
+
+    fn request(self) -> Post<Self> {
+        self.into()
+    }
 }
 
 impl<T: PostRequest> PostRequest for &T {

@@ -6,6 +6,10 @@ pub trait HeadRequest: Sized {
 
     fn path(&self) -> Cow<'_, str>;
     fn query(&self) -> Self::Query;
+
+    fn request(self) -> Head<Self> {
+        self.into()
+    }
 }
 
 impl<T: HeadRequest> Request for Head<T> {

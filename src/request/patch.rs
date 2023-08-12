@@ -1,4 +1,5 @@
 use super::*;
+use crate::methods::Patch;
 
 /// PATCH [`Request`] method.
 pub trait PatchRequest: Sized {
@@ -6,6 +7,10 @@ pub trait PatchRequest: Sized {
 
     fn path(&self) -> Cow<'_, str>;
     fn body(&self) -> Self::Request;
+
+    fn request(self) -> Patch<Self> {
+        self.into()
+    }
 }
 
 impl<T: PatchRequest> PatchRequest for &T {

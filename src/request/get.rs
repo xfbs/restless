@@ -15,6 +15,10 @@ pub trait GetRequest: Sized {
 
     /// Query parameters.
     fn query(&self) -> Self::Query;
+
+    fn request(self) -> Get<Self> {
+        self.into()
+    }
 }
 
 impl<T: GetRequest> GetRequest for &T {

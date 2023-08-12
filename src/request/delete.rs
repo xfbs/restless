@@ -1,4 +1,5 @@
 use super::*;
+use crate::methods::Delete;
 
 /// DELETE [`Request`] method.
 pub trait DeleteRequest: Sized {
@@ -6,6 +7,10 @@ pub trait DeleteRequest: Sized {
 
     fn path(&self) -> Cow<'_, str>;
     fn query(&self) -> Self::Query;
+
+    fn request(self) -> Delete<Self> {
+        self.into()
+    }
 }
 
 impl<T: DeleteRequest> DeleteRequest for &T {

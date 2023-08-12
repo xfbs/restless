@@ -34,6 +34,13 @@ impl ToQuery for &str {
 pub struct Urlencoded<T: Serialize>(pub T);
 
 #[cfg(feature = "urlencoded")]
+impl<T: Serialize> From<T> for Urlencoded<T> {
+    fn from(value: T) -> Self {
+        Self(value)
+    }
+}
+
+#[cfg(feature = "urlencoded")]
 impl<T: Serialize> ToQuery for Urlencoded<T> {
     fn encode(&self) -> Cow<'_, str> {
         serde_urlencoded::to_string(&self.0).unwrap().into()
@@ -49,5 +56,12 @@ pub struct Qs<T: Serialize>(pub T);
 impl<T: Serialize> ToQuery for Qs<T> {
     fn encode(&self) -> Cow<'_, str> {
         serde_qs::to_string(&self.0).unwrap().into()
+    }
+}
+
+#[cfg(feature = "qs")]
+impl<T: Serialize> From<T> for Qs<T> {
+    fn from(value: T) -> Self {
+        Self(value)
     }
 }
