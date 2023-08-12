@@ -5,7 +5,7 @@ use serde::de::DeserializeOwned;
 use std::{convert::Infallible, error::Error};
 
 /// Determines how a response is decoded.
-pub trait ResponseEncoding: Sized {
+pub trait Decodable: Sized {
     type Target;
     type Error: Error + Sync + Send + 'static;
 
@@ -18,7 +18,7 @@ pub trait ResponseEncoding: Sized {
 }
 
 #[cfg(feature = "json")]
-impl<T: DeserializeOwned> ResponseEncoding for super::Json<T> {
+impl<T: DeserializeOwned> Decodable for super::Json<T> {
     type Target = T;
     type Error = serde_json::Error;
 
@@ -28,7 +28,7 @@ impl<T: DeserializeOwned> ResponseEncoding for super::Json<T> {
 }
 
 #[cfg(feature = "json")]
-impl ResponseEncoding for serde_json::Value {
+impl Decodable for serde_json::Value {
     type Target = Self;
     type Error = serde_json::Error;
 
@@ -38,7 +38,7 @@ impl ResponseEncoding for serde_json::Value {
 }
 
 #[cfg(feature = "yaml")]
-impl<T: DeserializeOwned> ResponseEncoding for super::Yaml<T> {
+impl<T: DeserializeOwned> Decodable for super::Yaml<T> {
     type Target = T;
     type Error = serde_yaml::Error;
 
@@ -48,7 +48,7 @@ impl<T: DeserializeOwned> ResponseEncoding for super::Yaml<T> {
 }
 
 #[cfg(feature = "yaml")]
-impl ResponseEncoding for serde_yaml::Value {
+impl Decodable for serde_yaml::Value {
     type Target = Self;
     type Error = serde_yaml::Error;
 
@@ -58,7 +58,7 @@ impl ResponseEncoding for serde_yaml::Value {
 }
 
 #[cfg(feature = "bytes")]
-impl ResponseEncoding for Bytes {
+impl Decodable for Bytes {
     type Target = Bytes;
     type Error = Infallible;
 
@@ -72,7 +72,7 @@ impl ResponseEncoding for Bytes {
 }
 
 #[cfg(feature = "postcard")]
-impl<T: DeserializeOwned> ResponseEncoding for super::Postcard<T> {
+impl<T: DeserializeOwned> Decodable for super::Postcard<T> {
     type Target = T;
     type Error = postcard::Error;
 
@@ -82,7 +82,7 @@ impl<T: DeserializeOwned> ResponseEncoding for super::Postcard<T> {
 }
 
 #[cfg(feature = "bincode")]
-impl<T: DeserializeOwned> ResponseEncoding for super::Bincode<T> {
+impl<T: DeserializeOwned> Decodable for super::Bincode<T> {
     type Target = T;
     type Error = bincode::Error;
 
@@ -91,7 +91,7 @@ impl<T: DeserializeOwned> ResponseEncoding for super::Bincode<T> {
     }
 }
 
-impl ResponseEncoding for () {
+impl Decodable for () {
     type Target = ();
     type Error = Infallible;
 

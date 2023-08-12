@@ -38,6 +38,6 @@ pub fn request_builder<R: Request>(base: Base<'_>, request: R) -> Result<Request
 }
 
 /// Decode a [`Response`] into the target type.
-pub async fn decode<T: ResponseEncoding>(response: Response) -> Result<T::Target, ()> {
+pub async fn decode<T: Decodable>(response: Response) -> Result<T::Target, ()> {
     todo!()
 }

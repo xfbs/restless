@@ -1,7 +1,7 @@
 use super::*;
 
 pub trait PatchRequest: Sized {
-    type Request: RequestEncoding;
+    type Request: Encodable;
 
     fn path(&self) -> Cow<'_, str>;
     fn body(&self) -> Self::Request;

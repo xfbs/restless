@@ -2,14 +2,11 @@
 //!
 //! Used to modify how request and response bodies are encoded and decoded.
 
-mod request;
-pub use request::*;
+mod encodable;
+pub use encodable::*;
 
-mod response;
-pub use response::*;
-
-mod query;
-pub use query::*;
+mod decodable;
+pub use decodable::*;
 
 /// Encode and decode data as JSON using `serde_json`.
 #[cfg(any(doc, feature = "json"))]

@@ -1,3 +1,5 @@
+//! Traits to encode and decode URI query parameters.
+
 #[cfg(feature = "serde")]
 #[allow(unused_imports)]
 use serde::Serialize;

@@ -6,7 +6,7 @@ use super::*;
 /// only retrieve data.
 pub trait GetRequest: Sized {
     /// Response type and encoding.
-    type Response: ResponseEncoding;
+    type Response: Decodable;
     /// Query type.
     type Query: QueryEncoding;
 

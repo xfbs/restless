@@ -4,7 +4,7 @@ use bytes::Bytes;
 use serde::Serialize;
 
 /// Determines how a request is encoded.
-pub trait RequestEncoding {
+pub trait Encodable {
     fn encode(&self) -> Vec<u8>;
 
     #[cfg(feature = "bytes")]
@@ -13,14 +13,14 @@ pub trait RequestEncoding {
     }
 }
 
-impl RequestEncoding for () {
+impl Encodable for () {
     fn encode(&self) -> Vec<u8> {
         Vec::new()
     }
 }
 
 #[cfg(feature = "bytes")]
-impl RequestEncoding for Bytes {
+impl Encodable for Bytes {
     fn encode(&self) -> Vec<u8> {
         self.to_vec()
     }
@@ -35,13 +35,13 @@ mod json {
     use super::*;
     use crate::Json;
 
-    impl<T: Serialize> RequestEncoding for Json<T> {
+    impl<T: Serialize> Encodable for Json<T> {
         fn encode(&self) -> Vec<u8> {
             serde_json::to_vec(&self.0).unwrap()
         }
     }
 
-    impl RequestEncoding for serde_json::Value {
+    impl Encodable for serde_json::Value {
         fn encode(&self) -> Vec<u8> {
             serde_json::to_vec(&self).unwrap()
         }
@@ -49,7 +49,7 @@ mod json {
 }
 
 #[cfg(feature = "bincode")]
-impl<T: Serialize> RequestEncoding for super::Bincode<T> {
+impl<T: Serialize> Encodable for super::Bincode<T> {
     fn encode(&self) -> Vec<u8> {
         bincode::serialize(&self.0).unwrap()
     }
@@ -60,13 +60,13 @@ mod yaml {
     use super::*;
     use crate::Yaml;
 
-    impl<T: Serialize> RequestEncoding for Yaml<T> {
+    impl<T: Serialize> Encodable for Yaml<T> {
         fn encode(&self) -> Vec<u8> {
             serde_yaml::to_string(&self.0).unwrap().into_bytes()
         }
     }
 
-    impl RequestEncoding for serde_yaml::Value {
+    impl Encodable for serde_yaml::Value {
         fn encode(&self) -> Vec<u8> {
             serde_yaml::to_string(&self).unwrap().into_bytes()
         }
@@ -74,7 +74,7 @@ mod yaml {
 }
 
 #[cfg(feature = "postcard")]
-impl<T: Serialize> RequestEncoding for super::Postcard<T> {
+impl<T: Serialize> Encodable for super::Postcard<T> {
     fn encode(&self) -> Vec<u8> {
         postcard::to_allocvec(&self.0).unwrap()
     }

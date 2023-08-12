@@ -1,4 +1,4 @@
-use crate::{encoding::*, wrappers::*};
+use crate::{data::*, query::*, wrappers::*};
 use std::borrow::Cow;
 
 mod get;
@@ -19,13 +19,13 @@ pub use delete::*;
 /// methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) for an explainer of these.
 #[derive(Clone, Debug, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Method {
-    /// Requests a representation of the specified resoruce. Should only retrieve data.
+    /// Requests a representation of the specified resource. Should only retrieve data.
     Get,
     /// Similar to a [`Get`] request, but without the response body. Only retrieves headers.
     Head,
     /// Submits an entry to the specified resource. Often causes a change in state or side-effects.
     Post,
-    /// Plraces the target resource with the request payload. Is idempotent.
+    /// Replaces the target resource with the request payload. Is idempotent.
     Put,
     /// Deletes the specified resource on the server.
     Delete,
@@ -40,8 +40,8 @@ pub enum Method {
 }
 
 pub trait Request {
-    type Request: RequestEncoding;
-    type Response: ResponseEncoding;
+    type Request: Encodable;
+    type Response: Decodable;
     type Query: QueryEncoding;
 
     fn path(&self) -> Cow<'_, str>;
