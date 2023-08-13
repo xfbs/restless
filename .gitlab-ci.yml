@@ -3,7 +3,7 @@
 stages:
   - docker
   - test
-  - docs
+  - reports
   - publish
 
 # build and push docker image. this contains a rust compiler as well as some tooling
@@ -50,7 +50,7 @@ clippy:
 
 # build documentation
 rustdoc:
-  stage: docs
+  stage: reports
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
@@ -59,14 +59,27 @@ rustdoc:
     paths:
       - target/doc
 
+# build coverage.
+coverage:
+  stage: reports
+  image: $CI_REGISTRY_IMAGE
+  interruptible: true
+  script:
+    - cargo llvm-cov --html --all-features
+  artifacts:
+    paths:
+      - target/llvm-cov/html
+
 pages:
   stage: publish
   image: alpine
   dependencies:
     - rustdoc
+    - coverage
   script:
     - mkdir -p public
-    - mv target/doc public/
+    - mv target/doc public/rustdoc
+    - mv target/llvm-cov/html public/coverage
   artifacts:
     paths:
       - public

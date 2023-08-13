@@ -1,9 +1,10 @@
 # restless
 
 [![ci status](https://gitlab.com/xfbs/restless/badges/main/pipeline.svg)](https://gitlab.com/xfbs/restless/-/pipelines)
-[![docs nightly](https://img.shields.io/badge/docs-nightly-blue)](https://xfbs.gitlab.io/restless/doc/restless/)
+[![docs nightly](https://img.shields.io/badge/docs-nightly-blue)](https://xfbs.gitlab.io/restless/rustdoc/restless/)
 [![docs latest](https://img.shields.io/badge/docs-latest-blue)](https://docs.rs/restless)
 [![crate version](https://img.shields.io/crates/v/restless.svg)](https://crates.io/crates/restless)
+[![test coverage](https://img.shields.io/badge/coverage-nightly-blue)](https://xfbs.gitlab.io/restless/coverage/)
 
 REST API wrappers with less pain. This trait exposes helper traits that let you
 define your API in terms of trait implementations. Useful to remove redundant
