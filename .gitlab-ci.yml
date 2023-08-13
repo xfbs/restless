@@ -1,20 +1,57 @@
 # CI configuration.
 
 stages:
+  - docker
   - test
   - docs
   - publish
 
+# build and push docker image. this contains a rust compiler as well as some tooling
+# (cargo llvm-cov, cargo hack) used for testing and coverage reporting.
+docker:
+  stage: docker
+  image: docker
+  services:
+    - docker:dind
+  script:
+    - docker build . -t "$CI_REGISTRY_IMAGE"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker push "$CI_REGISTRY_IMAGE"
+  interruptible: true
+  only:
+    refs:
+      - main
+    changes:
+      - Dockerfile
+
+# run unit tests
 test:
   stage: test
-  image: rust:1.71-bookworm
+  image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
     - cargo test --all-features
 
+# check all feature combinations
+hack:
+  stage: test
+  image: $CI_REGISTRY_IMAGE
+  interruptible: true
+  script:
+    - cargo hack --feature-powerset --depth 2 check
+
+# run cargo clippy
+clippy:
+  stage: test
+  image: $CI_REGISTRY_IMAGE
+  interruptible: true
+  script:
+    - cargo clippy --all-features
+
+# build documentation
 rustdoc:
   stage: docs
-  image: rust:1.71-bookworm
+  image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
     - cargo doc --all-features

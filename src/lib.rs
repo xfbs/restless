@@ -41,7 +41,6 @@
 //!
 //! To see some examples for how this crate may be used, refer to the `examples/` directory in the
 //! [repository](https://github.com/xfbs/restless).
-#![deny(unused_imports)]
 
 pub mod clients;
 pub mod data;
