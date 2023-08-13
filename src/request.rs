@@ -39,6 +39,23 @@ pub enum Method {
     Patch,
 }
 
+#[cfg(feature = "http")]
+impl From<Method> for http::Method {
+    fn from(method: Method) -> Self {
+        match method {
+            Method::Get => http::Method::GET,
+            Method::Head => http::Method::HEAD,
+            Method::Post => http::Method::POST,
+            Method::Put => http::Method::PUT,
+            Method::Delete => http::Method::DELETE,
+            Method::Connect => http::Method::CONNECT,
+            Method::Options => http::Method::OPTIONS,
+            Method::Trace => http::Method::TRACE,
+            Method::Patch => http::Method::PATCH,
+        }
+    }
+}
+
 /// HTTP Request.
 ///
 /// This trait defines an arbitrary HTTP request.

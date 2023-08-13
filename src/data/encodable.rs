@@ -2,6 +2,7 @@
 use bytes::Bytes;
 #[cfg(feature = "serde")]
 use serde::Serialize;
+use std::borrow::Cow;
 
 /// Determines how a request is encoded.
 pub trait Encodable {
@@ -10,6 +11,10 @@ pub trait Encodable {
     #[cfg(feature = "bytes")]
     fn encode_bytes(&self) -> Bytes {
         self.encode().into()
+    }
+
+    fn content_type(&self) -> Option<Cow<'_, str>> {
+        None
     }
 }
 
@@ -39,11 +44,19 @@ mod json {
         fn encode(&self) -> Vec<u8> {
             serde_json::to_vec(&self.0).unwrap()
         }
+
+        fn content_type(&self) -> Option<Cow<'_, str>> {
+            Some("application/json".into())
+        }
     }
 
     impl Encodable for serde_json::Value {
         fn encode(&self) -> Vec<u8> {
             serde_json::to_vec(&self).unwrap()
+        }
+
+        fn content_type(&self) -> Option<Cow<'_, str>> {
+            Some("application/json".into())
         }
     }
 }
