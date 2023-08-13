@@ -18,6 +18,9 @@ rustdoc:
   interruptible: true
   script:
     - cargo doc --all-features
+  artifacts:
+    paths:
+      - target/doc
 
 pages:
   stage: publish
