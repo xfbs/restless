@@ -1,0 +1,35 @@
+# CI configuration.
+
+stages:
+  - test
+  - docs
+  - publish
+
+test:
+  stage: test
+  image: rust:1.71-bookworm
+  interruptible: true
+  script:
+    - cargo test --all-features
+
+rustdoc:
+  stage: docs
+  image: rust:1.71-bookworm
+  interruptible: true
+  script:
+    - cargo doc --all-features
+
+pages:
+  stage: publish
+  image: alpine
+  dependencies:
+    - rustdoc
+  script:
+    - mkdir -p public
+    - mv target/doc public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
