@@ -1,7 +1,8 @@
 #[cfg(feature = "gloo")]
-mod gloo;
-#[cfg(feature = "gloo")]
-pub use gloo::*;
+pub mod gloo;
+
+#[cfg(feature = "yew")]
+pub mod yew;
 
 #[cfg(feature = "hyper")]
 mod hyper;

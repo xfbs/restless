@@ -91,12 +91,21 @@ impl<T: DeserializeOwned> Decodable for super::Bincode<T> {
     }
 }
 
+#[derive(thiserror::Error, Debug)]
+pub enum EmptyDecodeError {
+    #[error("body is not empty")]
+    NotEmpty,
+}
+
 impl Decodable for () {
     type Target = ();
-    type Error = Infallible;
+    type Error = EmptyDecodeError;
 
-    fn decode(_data: &[u8]) -> Result<Self::Target, Self::Error> {
-        // TODO: raise error on non empty body?
+    fn decode(data: &[u8]) -> Result<Self::Target, Self::Error> {
+        if !data.is_empty() {
+            return Err(EmptyDecodeError::NotEmpty);
+        }
+
         Ok(())
     }
 }
