@@ -40,3 +40,7 @@ yew = ["dep:yew", "gloo", "dep:yew-hooks"]
 reqwest = []
 http = ["dep:http"]
 hyper = ["dep:hyper", "http", "bytes"]
+full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "gloo", "yew", "reqwest", "http", "hyper"]
+
+[package.metadata.docs.rs]
+features = ["full"]
