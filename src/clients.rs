@@ -5,6 +5,7 @@ pub mod gloo;
 pub mod yew;
 
 #[cfg(feature = "hyper")]
-mod hyper;
-#[cfg(feature = "hyper")]
-pub use self::hyper::*;
+pub mod hyper;
+
+#[cfg(feature = "axum")]
+pub mod axum;
