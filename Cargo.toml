@@ -25,7 +25,7 @@ serde_yaml = { version = "0.9.25", optional = true }
 thiserror = "1.0.44"
 tower = { version = "0.4.13", optional = true }
 url = "2.4.0"
-wasm-cache = { version = "0.1.1", optional = true }
+wasm-cache = { version = "0.1.1", git = "https://github.com/xfbs/wasm-cache", optional = true }
 yew = { version = "0.20.0", optional = true }
 yew-hooks = { version = "0.2.0", optional = true }
 
@@ -49,6 +49,3 @@ full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "glo
 
 [package.metadata.docs.rs]
 features = ["full"]
-
-[patch.crates-io]
-wasm-cache = { git = "https://github.com/xfbs/wasm-cache" }
