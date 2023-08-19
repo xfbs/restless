@@ -1,6 +1,6 @@
 use crate::clients::gloo::{GlooRequest, GlooRequestError, GlooResponse};
 use serde::{de::DeserializeOwned, Serialize};
-use std::{fmt::Debug, rc::Rc, borrow::Cow};
+use std::{borrow::Cow, fmt::Debug, rc::Rc};
 use yew::functional::{hook, use_context};
 use yew_hooks::prelude::{use_async_with_options, UseAsyncHandle, UseAsyncOptions};
 

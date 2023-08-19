@@ -9,3 +9,6 @@ pub mod hyper;
 
 #[cfg(feature = "axum")]
 pub mod axum;
+
+#[cfg(feature = "wasm-cache")]
+pub mod wasm_cache;
