@@ -49,3 +49,6 @@ full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "glo
 
 [package.metadata.docs.rs]
 features = ["full"]
+
+[patch.crates-io]
+wasm-cache = { git = "https://github.com/xfbs/wasm-cache" }
