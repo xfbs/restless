@@ -1,7 +1,7 @@
 #[cfg(feature = "bytes")]
 use bytes::Bytes;
-use std::{convert::Infallible, error::Error};
 use std::borrow::Cow;
+use std::{convert::Infallible, error::Error};
 
 /// Determines how a response is decoded.
 pub trait Decodable: Sized {

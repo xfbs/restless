@@ -1,5 +1,5 @@
-use std::borrow::Cow;
 use crate::{methods::*, query::*};
+use std::borrow::Cow;
 
 pub mod query;
 

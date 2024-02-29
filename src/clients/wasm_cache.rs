@@ -1,7 +1,7 @@
 use crate::clients::gloo::GlooRequest;
 use async_trait::async_trait;
 use std::{borrow::Cow, fmt::Debug, hash::Hash};
-use wasm_cache::{Invalidatable, CacheItem};
+use wasm_cache::{CacheItem, Invalidatable};
 
 /// Cached request.
 #[derive(PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Debug)]
@@ -12,15 +12,21 @@ pub struct CachedRequest<R: GlooRequest + Clone + Ord + Eq + Hash + Debug> {
     pub request: R,
 }
 
-impl<R: GlooRequest + Clone + Ord + Eq + Hash + Debug, M: 'static> Invalidatable<M> for CachedRequest<R> where R: Invalidatable<M> {
+impl<R: GlooRequest + Clone + Ord + Eq + Hash + Debug, M: 'static> Invalidatable<M>
+    for CachedRequest<R>
+where
+    R: Invalidatable<M>,
+{
     fn invalidated_by(&self, value: &M) -> bool {
         self.request.invalidated_by(value)
     }
 }
 
 #[async_trait(?Send)]
-impl<R: GlooRequest + PartialEq + Eq + PartialOrd + Ord + Hash + Clone + Debug + 'static, M: 'static>
-    CacheItem<M> for CachedRequest<R>
+impl<
+        R: GlooRequest + PartialEq + Eq + PartialOrd + Ord + Hash + Clone + Debug + 'static,
+        M: 'static,
+    > CacheItem<M> for CachedRequest<R>
 where
     R::Response: Clone + Debug + PartialEq,
     R: Invalidatable<M>,
