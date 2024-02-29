@@ -49,3 +49,9 @@ full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "glo
 
 [package.metadata.docs.rs]
 features = ["full"]
+
+[workspace]
+members = ["core", "data"]
+
+[workspace.dependencies]
+restless-core = { path = "./core", version = "0.1.0" }
