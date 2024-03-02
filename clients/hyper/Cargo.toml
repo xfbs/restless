@@ -7,4 +7,4 @@ edition = "2021"
 http = "0.2.9"
 hyper = "0.14.27"
 restless-core = { workspace = true, features = ["http", "bytes"] }
-thiserror = "1.0.57"
+thiserror.workspace = true

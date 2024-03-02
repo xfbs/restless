@@ -9,14 +9,6 @@ description = "REST API helper traits"
 repository = "https://github.com/xfbs/restless"
 
 [dependencies]
-async-trait = { version = "0.1.72", optional = true }
-bytes = { version = "1.4.0", optional = true }
-http = { version = "0.2.9", optional = true }
-serde = { version = "1.0.183", optional = true }
-serde_qs = { version = "0.12.0", optional = true }
-serde_urlencoded = { version = "0.7.1", optional = true }
-thiserror = "1.0.44"
-url = "2.4.0"
 restless-core = { workspace = true }
 restless-data = { workspace = true }
 restless-query = { workspace = true }
@@ -29,7 +21,7 @@ restless-wasm-cache = { workspace = true, optional = true }
 [features]
 default = ["bytes", "json"]
 json = ["restless-data/json"]
-bytes = ["dep:bytes", "restless-core/bytes", "restless-data/bytes"]
+bytes = ["restless-core/bytes", "restless-data/bytes"]
 postcard = ["restless-data/postcard"]
 bincode = ["restless-data/bincode"]
 yaml = ["restless-data/yaml"]
@@ -38,9 +30,8 @@ qs = ["restless-query/qs"]
 gloo = ["dep:restless-gloo"]
 yew = ["dep:restless-yew"]
 wasm-cache = ["dep:restless-wasm-cache"]
-serde = ["dep:serde"]
 reqwest = []
-http = ["dep:http", "restless-core/http"]
+http = ["restless-core/http"]
 hyper = ["dep:restless-hyper"]
 axum = ["dep:restless-axum"]
 full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "gloo", "yew", "reqwest", "http", "hyper", "axum"]
@@ -61,3 +52,6 @@ restless-axum = { path = "./clients/axum", version = "0.1.0" }
 restless-gloo = { path = "./clients/gloo", version = "0.1.0" }
 restless-yew = { path = "./clients/yew", version = "0.1.0" }
 restless-wasm-cache = { path = "./clients/wasm-cache", version = "0.1.0" }
+thiserror = "1.0.57"
+async-trait = "0.1.77"
+serde = "1.0.197"
