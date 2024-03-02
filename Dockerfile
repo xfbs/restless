@@ -1,4 +1,4 @@
-FROM rust:1.71-bookworm
+FROM rust:1.73-bookworm
 
 # install wasm support
 RUN rustup target add wasm32-unknown-unknown
