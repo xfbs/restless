@@ -1,10 +1,10 @@
-use crate::{methods::*, query::*};
 use std::borrow::Cow;
 
 pub mod query;
 pub use query::ToQuery;
 
 pub mod methods;
+use methods::*;
 
 mod data;
 pub use data::*;

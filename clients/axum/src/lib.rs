@@ -1,7 +1,7 @@
-use crate::clients::hyper::HyperRequest;
-use crate::{data::Decodable, Request};
 use async_trait::async_trait;
 use axum::Router;
+use restless_core::{Decodable, Request};
+use restless_hyper::{hyper, HyperRequest};
 use tower::ServiceExt;
 
 #[derive(thiserror::Error, Debug)]

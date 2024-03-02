@@ -1,0 +1,12 @@
+[package]
+name = "restless-axum"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait = "0.1.77"
+axum = { version = "0.6.20" }
+restless-core.workspace = true
+restless-hyper.workspace = true
+thiserror = "1.0.57"
+tower = "0.4.13"

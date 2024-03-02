@@ -6,11 +6,10 @@ macro_rules! module {
         mod $name;
         #[cfg(feature = $feature)]
         pub use $name::*;
-    }
+    };
 }
 
 module!("json", json);
 module!("yaml", yaml);
 module!("postcard", postcard);
 module!("bincode", bincode);
-

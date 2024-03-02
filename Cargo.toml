@@ -10,23 +10,21 @@ repository = "https://github.com/xfbs/restless"
 
 [dependencies]
 async-trait = { version = "0.1.72", optional = true }
-axum = { version = "0.6.20", optional = true }
 bytes = { version = "1.4.0", optional = true }
-gloo-net = { version = "0.3.1", optional = true }
 http = { version = "0.2.9", optional = true }
-hyper = { version = "0.14.27", optional = true }
 serde = { version = "1.0.183", optional = true }
 serde_qs = { version = "0.12.0", optional = true }
 serde_urlencoded = { version = "0.7.1", optional = true }
 thiserror = "1.0.44"
-tower = { version = "0.4.13", optional = true }
 url = "2.4.0"
-wasm-cache = { version = "0.1.1", git = "https://github.com/xfbs/wasm-cache", optional = true }
-yew = { version = "0.20.0", optional = true }
-yew-hooks = { version = "0.2.0", optional = true }
 restless-core = { workspace = true }
 restless-data = { workspace = true }
 restless-query = { workspace = true }
+restless-hyper = { workspace = true, optional = true }
+restless-axum = { workspace = true, optional = true }
+restless-gloo = { workspace = true, optional = true }
+restless-yew = { workspace = true, optional = true }
+restless-wasm-cache = { workspace = true, optional = true }
 
 [features]
 default = ["bytes", "json"]
@@ -35,25 +33,31 @@ bytes = ["dep:bytes", "restless-core/bytes", "restless-data/bytes"]
 postcard = ["restless-data/postcard"]
 bincode = ["restless-data/bincode"]
 yaml = ["restless-data/yaml"]
-urlencoded = ["dep:serde_urlencoded", "serde"]
-qs = ["dep:serde_qs", "serde"]
-gloo = ["dep:gloo-net", "json", "dep:async-trait", "http", "serde"]
-yew = ["dep:yew", "gloo", "dep:yew-hooks"]
-wasm-cache = ["dep:wasm-cache", "gloo"]
+urlencoded = ["restless-query/urlencoded"]
+qs = ["restless-query/qs"]
+gloo = ["dep:restless-gloo"]
+yew = ["dep:restless-yew"]
+wasm-cache = ["dep:restless-wasm-cache"]
 serde = ["dep:serde"]
 reqwest = []
 http = ["dep:http", "restless-core/http"]
-hyper = ["dep:hyper", "http", "bytes"]
-axum = ["dep:axum", "hyper", "dep:tower", "dep:async-trait"]
+hyper = ["dep:restless-hyper"]
+axum = ["dep:restless-axum"]
 full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "gloo", "yew", "reqwest", "http", "hyper", "axum"]
 
 [package.metadata.docs.rs]
 features = ["full"]
 
 [workspace]
-members = ["core", "data", "query"]
+resolver = "2"
+members = [ "clients/*", "core", "data", "query"]
 
 [workspace.dependencies]
 restless-core = { path = "./core", version = "0.1.0" }
 restless-data = { path = "./data", version = "0.1.0" }
 restless-query = { path = "./query", version = "0.1.0" }
+restless-hyper = { path = "./clients/hyper", version = "0.1.0" }
+restless-axum = { path = "./clients/axum", version = "0.1.0" }
+restless-gloo = { path = "./clients/gloo", version = "0.1.0" }
+restless-yew = { path = "./clients/yew", version = "0.1.0" }
+restless-wasm-cache = { path = "./clients/wasm-cache", version = "0.1.0" }

@@ -1,4 +1,4 @@
-pub use restless_core::{query::ToQuery};
+pub use restless_core::query::ToQuery;
 
 macro_rules! module {
     ($feature:expr, $name:ident) => {
@@ -6,7 +6,7 @@ macro_rules! module {
         mod $name;
         #[cfg(feature = $feature)]
         pub use $name::*;
-    }
+    };
 }
 
 module!("qs", qs);

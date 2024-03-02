@@ -1,0 +1,12 @@
+[package]
+name = "restless-gloo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait = "0.1.77"
+gloo-net = { version = "0.3.1" }
+restless-core = { workspace = true, features = ["http"] }
+restless-data = { workspace = true, features = ["json"] }
+serde = "1.0.197"
+thiserror = "1.0.57"

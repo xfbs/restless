@@ -1,4 +1,4 @@
-//! # REST-less
+//! # restless
 //!
 //! This is a crate that helps you specify your REST API in a typesafe manner. This is somewhat
 //! similar to standards such as [OpenAPI](https://www.openapis.org/), which allow you to specify
@@ -42,14 +42,44 @@
 //! To see some examples for how this crate may be used, refer to the `examples/` directory in the
 //! [repository](https://github.com/xfbs/restless).
 
-pub mod clients;
-pub mod data;
-pub mod methods;
+pub mod clients {
+    #[cfg(feature = "gloo")]
+    pub use restless_gloo::*;
+
+    #[cfg(feature = "yew")]
+    pub use restless_yew::*;
+
+    #[cfg(feature = "hyper")]
+    pub use restless_hyper::*;
+
+    #[cfg(feature = "axum")]
+    pub use restless_axum::*;
+
+    #[cfg(feature = "wasm-cache")]
+    pub use restless_wasm_cache::*;
+}
+
+/// Encoding traits and types.
+///
+/// Used to modify how request and response bodies are encoded and decoded.
+pub mod data {
+    pub use restless_core::{Decodable, Encodable};
+    pub use restless_data::*;
+}
+
+pub mod methods {
+    pub use restless_core::methods::*;
+}
+
 pub mod query {
     pub use restless_query::*;
 }
 
-mod request;
+pub mod request {
+    pub use restless_core::{
+        DeleteRequest, GetRequest, HeadRequest, Method, PatchRequest, PostRequest, Request,
+        RequestMethod, RequestType,
+    };
+}
 
-use data::*;
 pub use request::*;

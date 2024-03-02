@@ -1,6 +1,7 @@
-use crate::{Encodable, Request};
 use ::http::{Error, Method, Request as HttpRequest};
+pub use hyper;
 use hyper::body::Body;
+use restless_core::{Encodable, Request};
 
 /// Error turning a restless [`Request`] into a hyper [`Request`](http::Request).
 #[derive(thiserror::Error, Debug)]

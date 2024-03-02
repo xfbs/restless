@@ -1,10 +1,10 @@
-use crate::*;
 use async_trait::async_trait;
 use gloo_net::{
     http::{self as gloo, RequestBuilder, Response},
     Error as GlooError,
 };
-#[cfg(feature = "serde")]
+use restless_core::{Decodable, Request};
+use restless_data::Json;
 use serde::{de::DeserializeOwned, Serialize};
 use std::{error::Error, fmt::Debug};
 

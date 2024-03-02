@@ -1,5 +1,5 @@
-use crate::clients::gloo::GlooRequest;
 use async_trait::async_trait;
+use restless_gloo::GlooRequest;
 use std::{borrow::Cow, fmt::Debug, hash::Hash};
 use wasm_cache::{CacheItem, Invalidatable};
 

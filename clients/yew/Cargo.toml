@@ -1,0 +1,9 @@
+[package]
+name = "restless-yew"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+restless-gloo.workspace = true
+yew = "0.20.0"
+yew-hooks = "0.2.0"
