@@ -59,6 +59,17 @@ rustdoc:
     paths:
       - target/doc
 
+# build book
+mdbook:
+  stage: reports
+  image: $CI_REGISTRY_IMAGE
+  interruptible: true
+  script:
+    - mdbook build
+  artifacts:
+    paths:
+      - target/book
+
 # build coverage.
 coverage:
   stage: reports
@@ -76,8 +87,10 @@ pages:
   dependencies:
     - rustdoc
     - coverage
+    - mdbook
   script:
     - mkdir -p public
+    - mv target/book public
     - mv target/doc public/rustdoc
     - mv target/llvm-cov/html public/coverage
   artifacts:

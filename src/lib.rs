@@ -75,11 +75,7 @@ pub mod query {
     pub use restless_query::*;
 }
 
-pub mod request {
-    pub use restless_core::{
-        DeleteRequest, GetRequest, HeadRequest, Method, PatchRequest, PostRequest, Request,
-        RequestMethod, RequestType,
-    };
-}
-
-pub use request::*;
+pub use restless_core::{
+    DeleteRequest, GetRequest, HeadRequest, Method, PatchRequest, PostRequest, Request,
+    RequestMethod, RequestType,
+};
