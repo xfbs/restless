@@ -89,7 +89,6 @@ pages:
     - coverage
     - book
   script:
-    - mkdir -p public
     - mv target/book public
     - mv target/doc public/rustdoc
     - mv target/llvm-cov/html public/coverage
