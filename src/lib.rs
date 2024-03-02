@@ -45,7 +45,10 @@
 pub mod clients;
 pub mod data;
 pub mod methods;
-pub mod query;
+pub mod query {
+    pub use restless_query::*;
+}
+
 mod request;
 
 use data::*;

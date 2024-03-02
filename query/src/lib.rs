@@ -1,4 +1,4 @@
-pub use restless_core::{Decodable, Encodable};
+pub use restless_core::{query::ToQuery};
 
 macro_rules! module {
     ($feature:expr, $name:ident) => {
@@ -9,8 +9,5 @@ macro_rules! module {
     }
 }
 
-module!("json", json);
-module!("yaml", yaml);
-module!("postcard", postcard);
-module!("bincode", bincode);
-
+module!("qs", qs);
+module!("urlencoded", urlencoded);

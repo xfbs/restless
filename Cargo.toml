@@ -26,6 +26,7 @@ yew = { version = "0.20.0", optional = true }
 yew-hooks = { version = "0.2.0", optional = true }
 restless-core = { workspace = true }
 restless-data = { workspace = true }
+restless-query = { workspace = true }
 
 [features]
 default = ["bytes", "json"]
@@ -50,8 +51,9 @@ full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "glo
 features = ["full"]
 
 [workspace]
-members = ["core", "data"]
+members = ["core", "data", "query"]
 
 [workspace.dependencies]
 restless-core = { path = "./core", version = "0.1.0" }
 restless-data = { path = "./data", version = "0.1.0" }
+restless-query = { path = "./query", version = "0.1.0" }
