@@ -85,9 +85,9 @@ pages:
   stage: publish
   image: alpine
   dependencies:
-    - rustdoc
+    - docs
     - coverage
-    - mdbook
+    - book
   script:
     - mkdir -p public
     - mv target/book public
