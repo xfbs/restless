@@ -2,7 +2,7 @@
 
 stages:
   - docker
-  - test
+  - checks
   - reports
   - publish
 
@@ -26,46 +26,46 @@ docker:
 
 # run unit tests
 test:
-  stage: test
+  stage: checks
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - cargo test --all-features
+    - just test
 
 # check all feature combinations
-hack:
-  stage: test
+features:
+  stage: checks
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - cargo hack --feature-powerset --depth 2 check
+    - just features
 
 # run cargo clippy
-clippy:
-  stage: test
+style:
+  stage: checks
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - cargo clippy --all-features
+    - just style
 
 # build documentation
-rustdoc:
+docs:
   stage: reports
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - cargo doc --all-features
+    - just docs
   artifacts:
     paths:
       - target/doc
 
 # build book
-mdbook:
+book:
   stage: reports
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - mdbook build
+    - just book
   artifacts:
     paths:
       - target/book
@@ -76,7 +76,7 @@ coverage:
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - cargo llvm-cov --html --all-features
+    - just coverage
   artifacts:
     paths:
       - target/llvm-cov/html

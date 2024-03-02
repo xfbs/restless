@@ -2,7 +2,7 @@
 authors = ["Patrick Elsen"]
 language = "en"
 multilingual = false
-src = "docs"
+src = "book"
 title = "restless"
 
 [build]
