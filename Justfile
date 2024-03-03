@@ -62,9 +62,11 @@ checks:
 publish crate:
     #!/usr/bin/env bash
     set -euxo pipefail
-    cargo semver-checks --package {{crate}}
-    cargo publish --dry-run --package {{crate}}
     CRATE_VERSION=$(cargo metadata --format-version 1 | jq -r ".packages[] | select(.name == \"{{crate}}\") | .version")
+    if [ "$CRATE_VERSION" != "0.1.0" ]; then
+        cargo semver-checks --package {{crate}}
+    fi
+    cargo publish --dry-run --package {{crate}}
     GIT_TAG="{{crate}}-v$CRATE_VERSION"
     git tag "$GIT_TAG"
     cargo publish --package {{crate}}

@@ -1,6 +1,7 @@
 [package]
 name = "restless-hyper"
 version = "0.1.0"
+description = "Hyper integration for restless"
 edition.workspace = true
 license.workspace = true
 authors.workspace = true

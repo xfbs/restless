@@ -1,6 +1,7 @@
 [package]
 name = "restless-yew"
 version = "0.1.0"
+description = "Yew integration for restless"
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
