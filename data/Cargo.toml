@@ -1,6 +1,7 @@
 [package]
 name = "restless-data"
 version = "0.1.0"
+description = "Helper types to encode and decode request and response bodies for the restless crate."
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
