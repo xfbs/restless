@@ -1,6 +1,6 @@
 [package]
 name = "restless"
-version = "0.1.1"
+version = "0.2.0"
 documentation = "https://docs.rs/restless"
 description = "REST API helper traits"
 edition.workspace = true
