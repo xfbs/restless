@@ -1,5 +1,5 @@
 use serde::Serialize;
-use restless_core::ToQuery;
+use restless_core::query::ToQuery;
 use std::borrow::Cow;
 
 /// Encode and decode query strings using `serde_urlencoded`.
