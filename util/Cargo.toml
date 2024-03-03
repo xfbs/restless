@@ -1,6 +1,7 @@
 [package]
 name = "restless-util"
 version = "0.1.0"
+description = "Utility traits for working with restless"
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
