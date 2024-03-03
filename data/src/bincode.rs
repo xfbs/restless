@@ -7,8 +7,10 @@ use serde::{de::DeserializeOwned, Serialize};
 pub struct Bincode<T>(pub T);
 
 impl<T: Serialize> Encodable for Bincode<T> {
-    fn encode(&self) -> Vec<u8> {
-        serialize(&self.0).unwrap()
+    type Error = Error;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        serialize(&self.0)
     }
 }
 

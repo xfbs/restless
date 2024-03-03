@@ -1,14 +1,16 @@
 use crate::{Decodable, Encodable};
 use miniserde::{Serialize, Deserialize, json::{from_str, to_string}, Error};
-use std::borrow::Cow;
+use std::{convert::Infallible, borrow::Cow};
 
 /// Encode and decode data as JSON using `serde_json`.
 #[derive(Clone, Debug)]
 pub struct MiniserdeJson<T>(pub T);
 
 impl<T: Serialize> Encodable for MiniserdeJson<T> {
-    fn encode(&self) -> Vec<u8> {
-        to_string(&self.0).into()
+    type Error = Infallible;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        Ok(to_string(&self.0).into())
     }
 
     fn content_type(&self) -> Option<Cow<'_, str>> {

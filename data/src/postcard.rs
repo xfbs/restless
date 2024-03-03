@@ -7,8 +7,10 @@ use serde::{de::DeserializeOwned, Serialize};
 pub struct Postcard<T>(pub T);
 
 impl<T: Serialize> Encodable for Postcard<T> {
-    fn encode(&self) -> Vec<u8> {
-        to_allocvec(&self.0).unwrap()
+    type Error = Error;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        to_allocvec(&self.0)
     }
 }
 

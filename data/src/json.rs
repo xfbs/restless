@@ -8,8 +8,10 @@ use std::borrow::Cow;
 pub struct Json<T>(pub T);
 
 impl<T: Serialize> Encodable for Json<T> {
-    fn encode(&self) -> Vec<u8> {
-        to_vec(&self.0).unwrap()
+    type Error = Error;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        to_vec(&self.0)
     }
 
     fn content_type(&self) -> Option<Cow<'_, str>> {

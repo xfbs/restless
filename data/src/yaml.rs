@@ -7,8 +7,10 @@ use serde_yaml::{from_slice, to_string, Error};
 pub struct Yaml<T>(pub T);
 
 impl<T: Serialize> Encodable for Yaml<T> {
-    fn encode(&self) -> Vec<u8> {
-        to_string(&self.0).unwrap().into_bytes()
+    type Error = Error;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        to_string(&self.0).map(|value| value.into_bytes())
     }
 }
 

@@ -9,12 +9,17 @@ pub use hyper;
 use hyper::body::Body;
 use restless_core::{Encodable, Request};
 
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
 /// Error turning a restless [`Request`] into a hyper [`Request`](http::Request).
 #[derive(thiserror::Error, Debug)]
 pub enum HyperRequestError {
     /// Error in body
     #[error(transparent)]
     Body(#[from] Error),
+    /// Error encoding
+    #[error(transparent)]
+    Encoding(BoxError),
 }
 
 /// Turn a restless [`Request`] into a hyper [`Request`](http::Request).
@@ -41,7 +46,14 @@ fn to_hyper_request<T: Request>(
         Some(content_type) => builder.header("content-type", &*content_type),
         None => builder,
     };
-    let request = builder.body::<Body>(request.body().encode_bytes().into())?;
+    let request = builder.body::<Body>(
+        request
+            .body()
+            .encode_bytes()
+            .map_err(|error| Box::new(error) as BoxError)
+            .map_err(HyperRequestError::Encoding)?
+            .into(),
+    )?;
     Ok(request)
 }
 

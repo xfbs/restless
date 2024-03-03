@@ -69,13 +69,16 @@ impl Decodable for Vec<u8> {
 
 /// Determines how a request is encoded.
 pub trait Encodable {
+    /// Error that can be returned encoding data.
+    type Error: Error + Sync + Send + 'static;
+
     /// Encode self into a byte array.
-    fn encode(&self) -> Vec<u8>;
+    fn encode(&self) -> Result<Vec<u8>, Self::Error>;
 
     #[cfg(feature = "bytes")]
     /// Encode self into [`Bytes`].
-    fn encode_bytes(&self) -> Bytes {
-        self.encode().into()
+    fn encode_bytes(&self) -> Result<Bytes, Self::Error> {
+        self.encode().map(Into::into)
     }
 
     /// Content type of this data.
@@ -84,19 +87,31 @@ pub trait Encodable {
     }
 }
 
+impl Encodable for Vec<u8> {
+    type Error = Infallible;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        Ok(self.clone())
+    }
+}
+
 impl Encodable for () {
-    fn encode(&self) -> Vec<u8> {
-        Vec::new()
+    type Error = Infallible;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        Ok(Vec::new())
     }
 }
 
 #[cfg(feature = "bytes")]
 impl Encodable for Bytes {
-    fn encode(&self) -> Vec<u8> {
-        self.to_vec()
+    type Error = Infallible;
+
+    fn encode(&self) -> Result<Vec<u8>, Self::Error> {
+        Ok(self.to_vec())
     }
 
-    fn encode_bytes(&self) -> Bytes {
-        self.clone()
+    fn encode_bytes(&self) -> Result<Bytes, Self::Error> {
+        Ok(self.clone())
     }
 }
