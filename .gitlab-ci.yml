@@ -49,7 +49,7 @@ style:
     - just style
 
 # run unit tests
-book-test:
+test:book:
   stage: checks
   image: $CI_REGISTRY_IMAGE
   interruptible: true
@@ -73,7 +73,7 @@ book:
   image: $CI_REGISTRY_IMAGE
   interruptible: true
   script:
-    - just book
+    - just book-build
   artifacts:
     paths:
       - target/book
