@@ -59,6 +59,11 @@ coverage:
 checks:
     just test style features
 
+# validate semver compliance (using cargo semver-checks)
+semver:
+    cargo semver-checks --workspace
+
+# publish the crate with the given name. consider running `just semver` before
 publish crate:
     #!/usr/bin/env bash
     set -euxo pipefail
