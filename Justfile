@@ -47,8 +47,17 @@ docs:
     cargo doc --all-features
 
 # build book (using mdbook)
-book:
+book-build:
     mdbook build
+
+# test code examples in book
+book-test:
+    cargo build --all-features --target-dir target/book/target
+    mdbook test -L target/book/target/debug/deps
+
+# serve code from book
+book-serve:
+    mdbook serve
 
 # build coverage (using cargo llvm-cov)
 coverage:

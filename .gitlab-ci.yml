@@ -48,6 +48,14 @@ style:
   script:
     - just style
 
+# run unit tests
+book-test:
+  stage: checks
+  image: $CI_REGISTRY_IMAGE
+  interruptible: true
+  script:
+    - just book-test
+
 # build documentation
 docs:
   stage: reports
