@@ -1,9 +1,10 @@
-//! Traits to encode and decode URI query parameters.
+//! Traits to encode URI query parameters.
 
 use std::borrow::Cow;
 
 /// Determines how a query string is encoded.
 pub trait ToQuery {
+    /// Encode self into a query string.
     fn encode(&self) -> Cow<'_, str>;
 }
 

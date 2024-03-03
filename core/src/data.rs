@@ -1,3 +1,5 @@
+//! Traits to encode and decode request and response bodies.
+
 #[cfg(feature = "bytes")]
 use bytes::Bytes;
 use std::borrow::Cow;
@@ -5,12 +7,17 @@ use std::{convert::Infallible, error::Error};
 
 /// Determines how a response is decoded.
 pub trait Decodable: Sized {
+    /// Target type to decode to.
     type Target;
+
+    /// Error which can occur when attempting to decode data.
     type Error: Error + Sync + Send + 'static;
 
+    /// Decode data from a byte slice.
     fn decode(data: &[u8]) -> Result<Self::Target, Self::Error>;
 
     #[cfg(feature = "bytes")]
+    /// Decode data from [`Bytes`].
     fn decode_bytes(data: Bytes) -> Result<Self::Target, Self::Error> {
         Self::decode(&data[..])
     }
@@ -30,8 +37,10 @@ impl Decodable for Bytes {
     }
 }
 
+/// Error decoding a body which should be empty.
 #[derive(thiserror::Error, Debug)]
 pub enum EmptyDecodeError {
+    /// Body is not empty.
     #[error("body is not empty")]
     NotEmpty,
 }
@@ -60,13 +69,16 @@ impl Decodable for Vec<u8> {
 
 /// Determines how a request is encoded.
 pub trait Encodable {
+    /// Encode self into a byte array.
     fn encode(&self) -> Vec<u8>;
 
     #[cfg(feature = "bytes")]
+    /// Encode self into [`Bytes`].
     fn encode_bytes(&self) -> Bytes {
         self.encode().into()
     }
 
+    /// Content type of this data.
     fn content_type(&self) -> Option<Cow<'_, str>> {
         None
     }

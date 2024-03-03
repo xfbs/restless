@@ -1,13 +1,22 @@
+//! # restless core
+//!
+//! Core traits used by restless, crate which allows you to express HTTP request using the Rust
+//! type system.
+//!
+//! If you are using restless, then you should be using the `restless` crate and not this one. This
+//! crate is useful if you want to build plugins for `restless`.
+#![warn(missing_docs)]
+
 use std::borrow::Cow;
 
 pub mod query;
-pub use query::ToQuery;
+use query::ToQuery;
 
 pub mod methods;
 use methods::*;
 
-mod data;
-pub use data::*;
+pub mod data;
+pub use data::{Encodable, Decodable};
 
 mod get;
 pub use get::*;
@@ -142,12 +151,15 @@ where
     Self::Method: From<Self>,
     for<'a> &'a Self::Method: From<&'a Self>,
 {
+    /// Method to use for this request.
     type Method: Request;
 
+    /// Borrow a [`Request`].
     fn as_request(&self) -> &Self::Method {
         self.into()
     }
 
+    /// Turn this into an owned [`Request`].
     fn into_request(self) -> Self::Method {
         self.into()
     }

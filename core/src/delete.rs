@@ -3,11 +3,16 @@ use crate::methods::Delete;
 
 /// DELETE [`Request`] method.
 pub trait DeleteRequest: Sized {
+    /// Query type to use.
     type Query: ToQuery;
 
+    /// Get path of request.
     fn path(&self) -> Cow<'_, str>;
+
+    /// Get query of request.
     fn query(&self) -> Self::Query;
 
+    /// Turn self into a [`Request`].
     fn request(self) -> Delete<Self> {
         self.into()
     }

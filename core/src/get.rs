@@ -7,6 +7,7 @@ use super::*;
 pub trait GetRequest: Sized {
     /// Response type and encoding.
     type Response: Decodable;
+
     /// Query type.
     type Query: ToQuery;
 
@@ -16,6 +17,7 @@ pub trait GetRequest: Sized {
     /// Query parameters.
     fn query(&self) -> Self::Query;
 
+    /// Turn this into a [`Request`].
     fn request(self) -> Get<Self> {
         self.into()
     }

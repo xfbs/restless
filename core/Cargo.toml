@@ -15,6 +15,7 @@ thiserror.workspace = true
 [features]
 bytes = ["dep:bytes"]
 http = ["dep:http"]
+full = ["bytes", "http"]
 
 [package.metadata.docs.rs]
-features = ["bytes"]
+features = ["full"]

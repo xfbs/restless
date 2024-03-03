@@ -3,11 +3,16 @@ use crate::methods::Patch;
 
 /// PATCH [`Request`] method.
 pub trait PatchRequest: Sized {
+    /// Request body type.
     type Request: Encodable;
 
+    /// Get path of request.
     fn path(&self) -> Cow<'_, str>;
+
+    /// Get body of request.
     fn body(&self) -> Self::Request;
 
+    /// Turn self into [`Request`].
     fn request(self) -> Patch<Self> {
         self.into()
     }

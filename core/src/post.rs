@@ -2,11 +2,16 @@ use super::*;
 
 /// POST [`Request`] method.
 pub trait PostRequest: Sized {
+    /// Request body type.
     type Request: Encodable;
 
+    /// Get path of request.
     fn path(&self) -> Cow<'_, str>;
+
+    /// Get body of request.
     fn body(&self) -> Self::Request;
 
+    /// Turn self into a [`Request`].
     fn request(self) -> Post<Self> {
         self.into()
     }
