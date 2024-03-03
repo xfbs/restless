@@ -1,3 +1,9 @@
+//! # restless gloo
+//!
+//! Integration of the `restless` crate with `gloo` for making requests from within the browser.
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+#![warn(missing_docs)]
+
 use async_trait::async_trait;
 use gloo_net::{
     http::{self as gloo, RequestBuilder, Response},
@@ -19,6 +25,7 @@ pub enum GlooRequestError<D: Error + Debug> {
     Decode(#[source] D),
 }
 
+/// Error in the response.
 pub type ResponseError<T> = GlooRequestError<T>;
 
 /// Decodable from a gloo [`Response`].
@@ -64,7 +71,9 @@ impl<T: GlooResponseBinary> GlooResponse for T {
 impl GlooResponseBinary for () {}
 impl GlooResponseBinary for Vec<u8> {}
 
+/// Turn a value into a gloo request.
 pub trait ToGlooRequest {
+    /// Apply a request to a gloo [`RequestBuilder`].
     fn to_gloo_request(&self, request: RequestBuilder) -> Result<gloo::Request, GlooError>;
 }
 
@@ -87,15 +96,21 @@ pub fn request_builder<R: Request>(prefix: &str, request: &R) -> RequestBuilder 
     RequestBuilder::new(&path).method(method)
 }
 
+/// A request that can be sent with gloo.
 #[async_trait(?Send)]
 pub trait GlooRequest {
+    /// Response type.
     type Response;
+
+    /// Error that can be raised.
     type Error: Error + Debug;
 
+    /// Send the request.
     async fn send(&self) -> Result<Self::Response, Self::Error> {
         self.send_prefix("/").await
     }
 
+    /// Send the request with a custom prefix.
     async fn send_prefix(&self, prefix: &str) -> Result<Self::Response, Self::Error>;
 }
 

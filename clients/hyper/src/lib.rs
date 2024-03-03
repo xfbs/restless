@@ -1,3 +1,9 @@
+//! # restless hyper
+//!
+//! Integration of restless with the hyper crate.
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+#![warn(missing_docs)]
+
 use ::http::{Error, Method, Request as HttpRequest};
 pub use hyper;
 use hyper::body::Body;
@@ -6,6 +12,7 @@ use restless_core::{Encodable, Request};
 /// Error turning a restless [`Request`] into a hyper [`Request`](http::Request).
 #[derive(thiserror::Error, Debug)]
 pub enum HyperRequestError {
+    /// Error in body
     #[error(transparent)]
     Body(#[from] Error),
 }

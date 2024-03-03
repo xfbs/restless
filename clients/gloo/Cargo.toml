@@ -10,7 +10,7 @@ repository.workspace = true
 metadata.workspace = true
 
 [dependencies]
-async-trait = "0.1.77"
+async-trait.workspace = true
 gloo-net = { version = "0.3.1" }
 restless-core = { workspace = true, features = ["http"] }
 restless-data = { workspace = true, features = ["json"] }

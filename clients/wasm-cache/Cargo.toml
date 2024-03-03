@@ -10,6 +10,6 @@ repository.workspace = true
 metadata.workspace = true
 
 [dependencies]
-async-trait = "0.1.77"
+async-trait.workspace = true
 restless-gloo.workspace = true
 wasm-cache = { version = "0.2.1" }

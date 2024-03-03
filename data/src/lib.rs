@@ -5,8 +5,9 @@
 //!
 //! As a consumer of `restless`, you should not depend on this crate directly, but rather on the
 //! main `restless` crate and turn on the prerequisite features.
-
 #![warn(missing_docs)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+
 pub use restless_core::{Decodable, Encodable};
 
 macro_rules! module {

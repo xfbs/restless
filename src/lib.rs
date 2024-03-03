@@ -42,6 +42,7 @@
 //! To see some examples for how this crate may be used, refer to the `examples/` directory in the
 //! [repository](https://github.com/xfbs/restless).
 #![warn(missing_docs)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
 /// Integrations with HTTP clients.
 pub mod clients {

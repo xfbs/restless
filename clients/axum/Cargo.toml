@@ -10,7 +10,7 @@ repository.workspace = true
 metadata.workspace = true
 
 [dependencies]
-async-trait = "0.1.77"
+async-trait.workspace = true
 axum = { version = "0.6.20" }
 restless-core.workspace = true
 restless-hyper.workspace = true

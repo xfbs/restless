@@ -1,14 +1,23 @@
+//! # restless axum
+//!
+//! Integration of restless with axum.
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+#![warn(missing_docs)]
+
 use async_trait::async_trait;
 use axum::Router;
 use restless_core::{Decodable, Request};
 use restless_hyper::{hyper, HyperRequest};
 use tower::ServiceExt;
 
+/// Error sending request.
 #[derive(thiserror::Error, Debug)]
 pub enum Error {}
 
+/// Trait to extend axum's [`Router`] to be able to send `restless` requests.
 #[async_trait(?Send)]
-trait RouterExt {
+pub trait RouterExt {
+    /// Send request to router.
     async fn send<R: Request>(
         &self,
         request: R,

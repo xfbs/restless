@@ -6,6 +6,7 @@
 //! If you are using restless, then you should be using the `restless` crate and not this one. This
 //! crate is useful if you want to build plugins for `restless`.
 #![warn(missing_docs)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
 use std::borrow::Cow;
 
