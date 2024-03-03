@@ -1,6 +1,7 @@
 [package]
 name = "restless-core"
 version = "0.1.0"
+description = "Core traits for restless, a crate which allows you to express HTTP requests using the Rust trait system."
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
