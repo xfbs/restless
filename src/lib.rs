@@ -41,7 +41,9 @@
 //!
 //! To see some examples for how this crate may be used, refer to the `examples/` directory in the
 //! [repository](https://github.com/xfbs/restless).
+#![warn(missing_docs)]
 
+/// Integrations with HTTP clients.
 pub mod clients {
     #[cfg(feature = "gloo")]
     pub use restless_gloo::*;
@@ -67,10 +69,12 @@ pub mod data {
     pub use restless_data::*;
 }
 
+/// Method wrappers.
 pub mod methods {
     pub use restless_core::methods::*;
 }
 
+/// Query mappers.
 pub mod query {
     pub use restless_query::*;
 }
@@ -81,6 +85,7 @@ pub use restless_core::{
 };
 
 #[cfg(feature = "util")]
+/// Utility traits.
 pub mod util {
     pub use restless_util::*;
 }

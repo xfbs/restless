@@ -84,8 +84,7 @@ impl<T: Serialize> ToGlooRequest for Json<T> {
 pub fn request_builder<R: Request>(prefix: &str, request: &R) -> RequestBuilder {
     let path = format!("{prefix}{}", request.uri());
     let method = request.method().into();
-    let builder = RequestBuilder::new(&path).method(method);
-    builder
+    RequestBuilder::new(&path).method(method)
 }
 
 #[async_trait(?Send)]

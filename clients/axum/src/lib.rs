@@ -27,7 +27,7 @@ impl RouterExt for Router {
             .oneshot(request.to_hyper_request().unwrap())
             .await
             .unwrap();
-        let status = response.status();
+        let _status = response.status();
         let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
         Ok(R::Response::decode(&body[..]).unwrap())
     }

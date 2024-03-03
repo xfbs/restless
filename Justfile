@@ -39,7 +39,7 @@ features:
 
 # check style (using clippy and rustfmt)
 style:
-    cargo clippy --all-features --all
+    cargo clippy --all-features --all -- --deny warnings
     cargo fmt --check --all
 
 # build crate docs (using rustdoc)

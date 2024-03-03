@@ -16,7 +16,7 @@ pub mod methods;
 use methods::*;
 
 pub mod data;
-pub use data::{Encodable, Decodable};
+pub use data::{Decodable, Encodable};
 
 mod get;
 pub use get::*;

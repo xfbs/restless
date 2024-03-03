@@ -22,3 +22,7 @@ json = ["dep:serde_json", "dep:serde"]
 postcard = ["dep:postcard", "dep:serde"]
 bincode = ["dep:bincode", "dep:serde"]
 yaml = ["dep:serde_yaml", "dep:serde"]
+full = ["bytes", "json", "postcard", "bincode", "yaml"]
+
+[package.metadata.docs.rs]
+features = ["full"]
