@@ -64,6 +64,7 @@ docs:
   script:
     - just docs
   artifacts:
+    expire_in: 1 week
     paths:
       - target/doc
 
@@ -75,6 +76,7 @@ book:
   script:
     - just book-build
   artifacts:
+    expire_in: 1 week
     paths:
       - target/book
 
@@ -86,6 +88,7 @@ coverage:
   script:
     - just coverage
   artifacts:
+    expire_in: 1 week
     paths:
       - target/llvm-cov/html
 
