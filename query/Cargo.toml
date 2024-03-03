@@ -1,6 +1,7 @@
 [package]
 name = "restless-query"
 version = "0.1.0"
+description = "Helper types to encode query parameters for the restless crate."
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
