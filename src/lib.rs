@@ -79,3 +79,11 @@ pub use restless_core::{
     DeleteRequest, GetRequest, HeadRequest, Method, PatchRequest, PostRequest, Request,
     RequestMethod, RequestType,
 };
+
+#[cfg(feature = "util")]
+pub mod util {
+    pub use restless_util::*;
+}
+
+#[cfg(feature = "util")]
+pub use util::RequestExt;

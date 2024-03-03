@@ -1,15 +1,17 @@
 [package]
 name = "restless"
 version = "0.1.1"
-edition = "2021"
-license = "MIT"
-authors = ["Patrick M. Elsen <pelsen@xfbs.net>"]
 documentation = "https://docs.rs/restless"
 description = "REST API helper traits"
-repository = "https://github.com/xfbs/restless"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+homepage.workspace = true
+repository.workspace = true
 
 [dependencies]
 restless-core = { workspace = true }
+restless-util = { workspace = true, optional = true }
 restless-data = { workspace = true }
 restless-query = { workspace = true }
 restless-hyper = { workspace = true, optional = true }
@@ -20,6 +22,7 @@ restless-wasm-cache = { workspace = true, optional = true }
 
 [features]
 default = ["bytes", "json"]
+util = ["dep:restless-util"]
 json = ["restless-data/json"]
 bytes = ["restless-core/bytes", "restless-data/bytes"]
 postcard = ["restless-data/postcard"]
@@ -41,10 +44,18 @@ features = ["full"]
 
 [workspace]
 resolver = "2"
-members = [ "clients/*", "core", "data", "query"]
+members = [ "clients/*", "core", "data", "query", "util"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+authors = ["Patrick M. Elsen <pelsen@xfbs.net>"]
+repository = "https://github.com/xfbs/restless"
+homepage = "https://xfbs.gitlab.io/restless"
 
 [workspace.dependencies]
 restless-core = { path = "./core", version = "0.1.0" }
+restless-util = { path = "./util", version = "0.1.0" }
 restless-data = { path = "./data", version = "0.1.0" }
 restless-query = { path = "./query", version = "0.1.0" }
 restless-hyper = { path = "./clients/hyper", version = "0.1.0" }

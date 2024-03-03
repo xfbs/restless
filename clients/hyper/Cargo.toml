@@ -1,7 +1,11 @@
 [package]
 name = "restless-hyper"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+homepage.workspace = true
+repository.workspace = true
 
 [dependencies]
 http = "0.2.9"
