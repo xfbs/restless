@@ -3,7 +3,6 @@ use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{from_slice, to_string, Error};
 
 /// Encode and decode data as YAML using `serde_yaml`.
-#[cfg(any(doc, feature = "yaml"))]
 #[derive(Clone, Debug)]
 pub struct Yaml<T>(pub T);
 

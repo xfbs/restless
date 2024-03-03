@@ -40,7 +40,8 @@ axum = ["dep:restless-axum"]
 full = ["json", "bytes", "postcard", "bincode", "yaml", "urlencoded", "qs", "gloo", "yew", "reqwest", "http", "hyper", "axum"]
 
 [package.metadata.docs.rs]
-features = ["full"]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
 
 [workspace]
 resolver = "2"

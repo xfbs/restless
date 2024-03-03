@@ -1,15 +1,14 @@
 use crate::{Decodable, Encodable};
-use serde::{de::DeserializeOwned, Serialize};
-use serde_json::{from_slice, to_vec, Error};
+use miniserde::{Serialize, Deserialize, json::{from_str, to_string}, Error};
 use std::borrow::Cow;
 
 /// Encode and decode data as JSON using `serde_json`.
 #[derive(Clone, Debug)]
-pub struct Json<T>(pub T);
+pub struct MiniserdeJson<T>(pub T);
 
-impl<T: Serialize> Encodable for Json<T> {
+impl<T: Serialize> Encodable for MiniserdeJson<T> {
     fn encode(&self) -> Vec<u8> {
-        to_vec(&self.0).unwrap()
+        to_string(&self.0).into()
     }
 
     fn content_type(&self) -> Option<Cow<'_, str>> {
@@ -17,11 +16,11 @@ impl<T: Serialize> Encodable for Json<T> {
     }
 }
 
-impl<T: DeserializeOwned> Decodable for Json<T> {
+impl<T: Deserialize> Decodable for MiniserdeJson<T> {
     type Target = T;
     type Error = Error;
 
     fn decode(data: &[u8]) -> Result<Self::Target, Self::Error> {
-        from_slice(data)
+        from_str(std::str::from_utf8(data).unwrap())
     }
 }

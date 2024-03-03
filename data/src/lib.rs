@@ -22,3 +22,4 @@ module!("json", json);
 module!("yaml", yaml);
 module!("postcard", postcard);
 module!("bincode", bincode);
+module!("miniserde", miniserde);
