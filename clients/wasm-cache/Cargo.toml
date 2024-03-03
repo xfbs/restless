@@ -11,4 +11,4 @@ repository.workspace = true
 [dependencies]
 async-trait = "0.1.77"
 restless-gloo.workspace = true
-wasm-cache = { version = "0.1.1", git = "https://github.com/xfbs/wasm-cache" }
+wasm-cache = { version = "0.2.1" }
