@@ -5,6 +5,9 @@ multilingual = false
 src = "book"
 title = "restless"
 
+[rust]
+edition = "2021"
+
 [build]
 build-dir = "target/book"
 create-missing = true
